@@ -18,7 +18,7 @@ node {
           //ACR AKS 연결
           echo '---------ACR AKS 연결------------'
           sh 'az acr login --name mungtaregistry'
-          sh 'az aks get-credentials --resource-group devops-rg --name mungta-kubernetes'
+          sh 'az aks get-credentials --resource-group devops-rg --name mungta-kubernetes --overwrite-existing'
 
           echo '---------AKS 배포------------'
           sh 'docker push mungtaregistry.azurecr.io/mungta/dev/question-service'
