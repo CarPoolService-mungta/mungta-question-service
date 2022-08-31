@@ -1,5 +1,7 @@
 package com.mungta.questionsservice.domain.question.controller;
 
+import com.mungta.questionsservice.common.ApiException;
+import com.mungta.questionsservice.common.ApiStatus;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.Question;
@@ -21,7 +23,6 @@ public class QuestionController {
     @PostMapping("/question")
     public ResponseEntity registerQuestion(@RequestBody QuestionRegisterRequest questionRegisterRequest){
         questionService.registerQuestion(questionRegisterRequest);
-
         return ResponseEntity.noContent().build();
     }
 

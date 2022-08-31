@@ -28,14 +28,11 @@ public class QuestionService {
 
     public Question findShowQuestionById(Long id){
 
-        Question question= questionRepository.findByIdAndDisplayStatus(id, DisplayStatus.SHOW)
-                .orElseThrow(()-> new ApiException(ApiStatus.NOT_EXIST_QUESTION));
         return questionRepository.findByIdAndDisplayStatus(id, DisplayStatus.SHOW)
                 .orElseThrow(()-> new ApiException(ApiStatus.NOT_EXIST_QUESTION));
     }
 
     public QuestionResponse findShowQuestionResponse(Long id){
-        QuestionResponse questionResponse = findShowQuestionById(id).convertQuestionResponse();
         return findShowQuestionById(id).convertQuestionResponse();
     }
 
