@@ -19,7 +19,7 @@ import java.util.List;
 public class QuestionController {
 
     private final QuestionService questionService;
-
+    // Todo Swagger 코멘트 달아야합니다.
     @PostMapping("/question")
     public ResponseEntity registerQuestion(@RequestBody QuestionRegisterRequest questionRegisterRequest){
         questionService.registerQuestion(questionRegisterRequest);
