@@ -23,7 +23,7 @@ node {
           echo '---------AKS 배포------------'
           sh 'docker push mungtaregistry.azurecr.io/mungta/dev/question-service'
           sh 'kubectl apply -f question-service-deploy-dev.yml'
-          sh 'kubectl rollout restart deployment question-service'
+          sh 'kubectl rollout restart deployment question-service --namespace=mungta'
 
           sh 'az logout'
         }
