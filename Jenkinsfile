@@ -5,7 +5,7 @@ node {
       stage('docker build') {
         echo '---------docker build 시작------------'
         sh 'docker build --build-arg ENVIRONMENT=dev -t  mungta-question-service-dev .'
-        sh 'docker tag mungta-question-service-dev mungtaregistry.azurecr.io/mungta/dev/question-service'
+        sh 'docker tag mungta-question-service-dev mungtaregistry.azurecr.io/mungta/dev/question'
       }
       stage('deploy') {
         withCredentials([azureServicePrincipal('azure_service_principal')]) {
@@ -21,9 +21,9 @@ node {
           sh 'az aks get-credentials --resource-group devops-rg --name mungta-kubernetes --overwrite-existing'
 
           echo '---------AKS 배포------------'
-          sh 'docker push mungtaregistry.azurecr.io/mungta/dev/question-service'
+          sh 'docker push mungtaregistry.azurecr.io/mungta/dev/question'
           sh 'kubectl apply -f question-service-deploy-dev.yml'
-          sh 'kubectl rollout restart deployment question-service --namespace=mungta'
+          sh 'kubectl rollout restart deployment question --namespace=mungta'
 
           sh 'az logout'
         }
