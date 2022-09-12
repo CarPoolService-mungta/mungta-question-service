@@ -8,6 +8,7 @@ import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.service.QuestionService;
 import com.mungta.questionsservice.domain.question.dto.request.QuestionRegisterRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/api/question")
 public class QuestionController {
 
