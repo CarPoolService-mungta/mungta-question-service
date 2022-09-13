@@ -24,8 +24,7 @@ public class Response extends BaseEntity {
 
     private Long adminId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+    @OneToOne(mappedBy = "response")
     private Question question;
 
     public static Response of(ResponseContents response, Long adminId, Question question){

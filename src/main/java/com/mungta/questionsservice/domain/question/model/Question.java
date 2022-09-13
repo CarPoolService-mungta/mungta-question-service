@@ -27,7 +27,8 @@ public class Question extends BaseEntity {
     @Embedded
     private QuestionContents question;
 
-    @OneToOne(mappedBy = "question")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="response_id")
     private Response response;
 
     @Enumerated(EnumType.STRING)

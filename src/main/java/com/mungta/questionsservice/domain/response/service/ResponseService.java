@@ -1,6 +1,7 @@
 package com.mungta.questionsservice.domain.response.service;
 
 import com.mungta.questionsservice.domain.question.model.Question;
+import com.mungta.questionsservice.domain.question.repository.QuestionRepository;
 import com.mungta.questionsservice.domain.response.model.Response;
 import com.mungta.questionsservice.domain.response.repository.ResponseRepository;
 import com.mungta.questionsservice.domain.response.dto.ResponseRegisterRequest;
@@ -14,14 +15,20 @@ import javax.transaction.Transactional;
 public class ResponseService {
 
     private final ResponseRepository responseRepository;
+    private final QuestionRepository questionRepository;
 
     @Transactional
     public void registerResponse(Question question,
                                  ResponseRegisterRequest responseRegisterRequest){
 
-        responseRepository.save(Response.of(responseRegisterRequest.getResponseContents(),
+        question.setResponse(Response.of(responseRegisterRequest.getResponseContents(),
                 responseRegisterRequest.getAdminId(),
                 question
         ));
+        questionRepository.save(question);
+//        responseRepository.save(Response.of(responseRegisterRequest.getResponseContents(),
+//                responseRegisterRequest.getAdminId(),
+//                question
+//        ));
     }
 }
