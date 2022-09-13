@@ -21,5 +21,5 @@ public class ResponseRegisterRequest {
     private ResponseContents responseContents;
 
     @ApiModelProperty(value = "문의사항 id", required = true)
-    private Long QuestionId;
+    private Long questionId;
 }

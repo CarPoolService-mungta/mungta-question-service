@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Optional<Question> findByIdAndDisplayStatus(Long id, DisplayStatus displayStatus);
-    List<Question> findAllByUserIdAndDisplayStatus(Long userId, DisplayStatus displayStatus);
+    List<Question> findAllByUserIdAndDisplayStatusOrderByCreatedDateDesc(Long userId, DisplayStatus displayStatus);
+    List<Question> findAllByDisplayStatusOrderByCreatedDateDesc(DisplayStatus displayStatus);
 }

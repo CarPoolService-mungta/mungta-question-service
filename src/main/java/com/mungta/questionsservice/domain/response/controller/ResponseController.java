@@ -25,8 +25,8 @@ public class ResponseController {
     private final ResponseService responseService;
     private final QuestionService questionService;
 
-    @ApiOperation(value = "답변 등록", notes = "답변 등록 api")
-    @PostMapping("/response")
+    @ApiOperation(value = "[ADMIN]답변 등록", notes = "[ADMIN]답변 등록 api")
+    @PostMapping("/admin/response")
     public ResponseEntity registerResponse(@RequestBody ResponseRegisterRequest responseRegisterRequest){
         responseService.registerResponse(questionService.findShowQuestionById(responseRegisterRequest.getQuestionId())
                 , responseRegisterRequest);

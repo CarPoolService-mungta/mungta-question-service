@@ -58,4 +58,11 @@ public class QuestionController {
         questionService.deleteQuestion(id);
         return ResponseEntity.noContent().build();
     }
+
+    @ApiOperation(value = "[ADMIN]모든 문의사항 조회", notes = "[ADMIN]모든 문의사항 조회 api")
+    @GetMapping("/admin/question-show-all")
+    public ResponseEntity<List<QuestionListResponse>> findAllQuestion(){
+
+        return ResponseEntity.ok(questionService.findAllQuestion());
+    }
 }

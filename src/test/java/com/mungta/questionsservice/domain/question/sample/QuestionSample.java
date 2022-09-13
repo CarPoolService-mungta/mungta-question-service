@@ -5,6 +5,8 @@ import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.response.sample.ResponseSample;
 
+import java.time.LocalDateTime;
+
 public class QuestionSample {
     public static Question question1 =  Question.of(new QuestionContents("첫번째 문의 제목", "첫번째 문의 답변"), 0L);
     public static Question question2 =  Question.of(new QuestionContents("두번째 문의 제목", "두번째 문의 답변"), 0L);
@@ -28,7 +30,6 @@ public class QuestionSample {
         question8.setId(7L);
         question9.setId(8L);
         question10.setId(9L);
-
 
         question2.setDisplayStatus(DisplayStatus.DELETE);
         question4.setDisplayStatus(DisplayStatus.DELETE);

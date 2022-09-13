@@ -37,7 +37,13 @@ public class QuestionService {
     }
 
     public List<QuestionListResponse> findByUserId(Long userId){
-        return questionRepository.findAllByUserIdAndDisplayStatus(userId,DisplayStatus.SHOW)
+        return questionRepository.findAllByUserIdAndDisplayStatusOrderByCreatedDateDesc(userId,DisplayStatus.SHOW)
+                .stream().map(Question::convertListResponse)
+                .collect(Collectors.toList());
+    }
+
+    public List<QuestionListResponse> findAllQuestion(){
+        return questionRepository.findAllByDisplayStatusOrderByCreatedDateDesc(DisplayStatus.SHOW)
                 .stream().map(Question::convertListResponse)
                 .collect(Collectors.toList());
     }
