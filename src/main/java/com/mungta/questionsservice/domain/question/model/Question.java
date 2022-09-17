@@ -22,7 +22,7 @@ public class Question extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    private String userId;
 
     @Embedded
     private QuestionContents question;
@@ -34,7 +34,7 @@ public class Question extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DisplayStatus displayStatus;
 
-    public static Question of(QuestionContents question, Long userId){
+    public static Question of(QuestionContents question, String userId){
         return Question.builder()
                 .question(question)
                 .userId(userId)

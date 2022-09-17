@@ -76,7 +76,7 @@ public class QuestionControllerTest {
                 post("/api/question/question")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(new QuestionRegisterRequest(0L,new QuestionContents("추가 질문 제목", "추가 질문 내용"))))
+                        .content(new ObjectMapper().writeValueAsString(new QuestionRegisterRequest("0L",new QuestionContents("추가 질문 제목", "추가 질문 내용"))))
         );
 
         resultActions.andExpect(status().isNoContent());
@@ -110,7 +110,7 @@ public class QuestionControllerTest {
     @DisplayName("[문의사항] 특정 유저 문의사항 조회 API")
     @Test
     void findByUserId() throws Exception{
-        Long testUserId = 0L;
+        String testUserId = "0L";
 
         List<QuestionListResponse> expectResult = new ArrayList<>(){
             {

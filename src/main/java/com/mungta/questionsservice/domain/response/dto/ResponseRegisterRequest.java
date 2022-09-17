@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseRegisterRequest {
 
-    @ApiModelProperty(value = "관리자 id", required = true, example = "1")
-    private Long adminId;
+    @ApiModelProperty(value = "관리자 id", required = true, example = "adminId")
+    private String adminId;
 
     @ApiModelProperty(value = "답변 컨텐츠", required = true)
     private ResponseContents responseContents;

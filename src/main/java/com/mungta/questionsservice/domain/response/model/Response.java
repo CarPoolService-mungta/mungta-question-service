@@ -22,12 +22,12 @@ public class Response extends BaseEntity {
     @Embedded
     private ResponseContents response;
 
-    private Long adminId;
+    private String adminId;
 
     @OneToOne(mappedBy = "response")
     private Question question;
 
-    public static Response of(ResponseContents response, Long adminId, Question question){
+    public static Response of(ResponseContents response, String adminId, Question question){
         return Response.builder()
                 .response(response)
                 .adminId(adminId)

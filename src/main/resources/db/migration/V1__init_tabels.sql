@@ -4,7 +4,7 @@ create table response
         primary key,
     createdDate  datetime     null,
     modifiedDate datetime     null,
-    adminId      bigint       null,
+    adminId      varchar(255)      null,
     body         varchar(255) null,
     title        varchar(255) null
 );
@@ -18,7 +18,7 @@ create table question
     displayStatus varchar(255) null,
     body          varchar(255) null,
     title         varchar(255) null,
-    userId        bigint       null,
+    userId        varchar(255) null,
     response_id  bigint       null,
     constraint FKm4d4mcfd15oqapqsnivylwvwh
         foreign key (response_id) references response (id)

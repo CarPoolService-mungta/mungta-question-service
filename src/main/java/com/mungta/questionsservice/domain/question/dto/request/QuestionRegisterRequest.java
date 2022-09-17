@@ -13,8 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QuestionRegisterRequest {
 
-    @ApiModelProperty(value = "유저id", required = true, example = "1")
-    private Long userId;
+    @ApiModelProperty(value = "유저id", required = true, example = "userId")
+    private String userId;
 
     @ApiModelProperty(value = "문의사항 컨텐츠", required = true)
     private QuestionContents question;

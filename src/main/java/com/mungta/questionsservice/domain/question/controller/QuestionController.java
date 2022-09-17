@@ -47,7 +47,7 @@ public class QuestionController {
 
     @ApiOperation(value = "특정 유저 문의사항 조회", notes = "특정 유저 문의사항 조회 api")
     @GetMapping("/question-show-by-userId")
-    public ResponseEntity<List<QuestionListResponse>> findByUserId(@ApiParam(value = "유저id", required = true) @RequestParam Long userId){
+    public ResponseEntity<List<QuestionListResponse>> findByUserId(@ApiParam(value = "유저id", required = true) @RequestParam String userId){
 
         return ResponseEntity.ok(questionService.findByUserId(userId));
     }
