@@ -70,13 +70,13 @@ public class QuestionControllerTest {
     void registerQuestion() throws Exception{
 
         doNothing()
-                .when(questionService).registerQuestion(any());
+                .when(questionService).registerQuestion("0L",any());
 
         ResultActions resultActions = mockMvc.perform(
                 post("/api/question/question")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(new QuestionRegisterRequest("0L",new QuestionContents("추가 질문 제목", "추가 질문 내용"))))
+                        .content(new ObjectMapper().writeValueAsString(new QuestionRegisterRequest(new QuestionContents("추가 질문 제목", "추가 질문 내용"))))
         );
 
         resultActions.andExpect(status().isNoContent());

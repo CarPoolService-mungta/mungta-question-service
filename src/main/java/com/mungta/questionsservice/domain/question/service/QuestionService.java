@@ -22,8 +22,8 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     @Transactional
-    public void registerQuestion(QuestionRegisterRequest questionRegisterRequest){
-        questionRepository.save(Question.of(questionRegisterRequest.getQuestion(),questionRegisterRequest.getUserId()));
+    public void registerQuestion(String userId, QuestionRegisterRequest questionRegisterRequest){
+        questionRepository.save(Question.of(questionRegisterRequest.getQuestion(),userId));
     }
 
     public Question findShowQuestionById(Long id){

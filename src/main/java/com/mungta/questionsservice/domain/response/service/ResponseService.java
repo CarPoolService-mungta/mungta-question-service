@@ -18,11 +18,11 @@ public class ResponseService {
     private final QuestionRepository questionRepository;
 
     @Transactional
-    public void registerResponse(Question question,
+    public void registerResponse(String adminId, Question question,
                                  ResponseRegisterRequest responseRegisterRequest){
 
         question.setResponse(Response.of(responseRegisterRequest.getResponseContents(),
-                responseRegisterRequest.getAdminId(),
+                adminId,
                 question
         ));
         questionRepository.save(question);

@@ -22,11 +22,12 @@ import java.util.List;
 public class QuestionController {
 
     private final QuestionService questionService;
-    // Todo Swagger 코멘트 달아야합니다.
+
     @ApiOperation(value = "문의사항 등록", notes = "문의사항 등록 api")
     @PostMapping("/question")
-    public ResponseEntity registerQuestion(@RequestBody QuestionRegisterRequest questionRegisterRequest){
-        questionService.registerQuestion(questionRegisterRequest);
+    public ResponseEntity registerQuestion(@ApiParam(value = "유저id", required = true) @RequestHeader("userId") String userId,
+                                           @RequestBody QuestionRegisterRequest questionRegisterRequest){
+        questionService.registerQuestion(userId, questionRegisterRequest);
         return ResponseEntity.noContent().build();
     }
 
@@ -47,12 +48,13 @@ public class QuestionController {
 
     @ApiOperation(value = "특정 유저 문의사항 조회", notes = "특정 유저 문의사항 조회 api")
     @GetMapping("/question-show-by-userId")
-    public ResponseEntity<List<QuestionListResponse>> findByUserId(@ApiParam(value = "유저id", required = true) @RequestParam String userId){
+//    public ResponseEntity<List<QuestionListResponse>> findByUserId(@ApiParam(value = "유저id", required = true) @RequestParam String userId){
+    public ResponseEntity<List<QuestionListResponse>> findByUserId(@ApiParam(value = "유저id", required = true) @RequestHeader("userId") String userId){
 
         return ResponseEntity.ok(questionService.findByUserId(userId));
     }
 
-    @ApiOperation(value = "특정 유저 문의사항 삭제", notes = "특정 유저 문의사항 삭제 api")
+    @ApiOperation(value = "특정 문의사항 삭제", notes = "특정 문의사항 삭제 api")
     @DeleteMapping("/question")
     public ResponseEntity deleteQuestion(@ApiParam(value = "문의사항 id", required = true) @RequestParam Long id){
         questionService.deleteQuestion(id);
