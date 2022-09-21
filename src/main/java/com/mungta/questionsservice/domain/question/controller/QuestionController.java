@@ -31,14 +31,6 @@ public class QuestionController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/now")
-//    public ResponseEntity now(){
-//        return ResponseEntity.ok(System.currentTimeMillis());
-//    }
-//    @GetMapping("/exp")
-//    public ResponseEntity exp(){
-//        return ResponseEntity.ok(System.currentTimeMillis() + 24 * 60 * 60 * 1000L);
-//    }
     @ApiOperation(value = "특정 문의사항 조회", notes = "특정 문의사항 조회 api")
     @GetMapping("/question-show")
     public ResponseEntity<QuestionResponse> findShowQuestionById(@ApiParam(value = "문의사항 id", required = true)  @RequestParam Long id){

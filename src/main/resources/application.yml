@@ -1,8 +1,8 @@
 spring:
   datasource:
-    jdbc-url: jdbc:mysql://mungta-questions-db.mysql.database.azure.com:3306/question_dev?serverTimezone=Asia/Seoul&validationQuery="select 1"
-    username: mungta
-    password: andxk12#$
+    jdbc-url: jdbc:mysql://${DB_HOST}:3306/question_dev?serverTimezone=Asia/Seoul&validationQuery="select 1"
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       auto-commit: false
@@ -31,7 +31,7 @@ spring:
     baseline-version: 0
 
 server:
-  port: 8080
+  port: 8087
 
 logging:
   config: classpath:logging/logback-mungta.xml

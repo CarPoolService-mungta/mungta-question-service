@@ -46,7 +46,7 @@ public class Question extends BaseEntity {
         return QuestionListResponse.of(
                 id,
                 question.getTitle(),
-                getCreatedDate().toLocalDate(),
+                Objects.isNull(getCreatedDate()) ? null : getCreatedDate().toLocalDate() ,
                 response != null
         );
     }

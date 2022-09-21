@@ -34,109 +34,117 @@ node {
           sh "docker rmi \$(docker images -f 'dangling=true' -q)"
       }
     }
+/////////////////////////////////////////
+pipeline {
+  agent any
+  environment {
+    IMAGE_REPO = 'mungtaregistry.azurecr.io/mungta/dev'
+    IMAGE_NAME = 'question-service'
+    IMAGE_TAG = "${env.BUILD_NUMBER}"
+    //IMAGE_TAG = 'latest'
+    ENVIRONMENT = 'dev'
+    ARGOCD_APP = 'mungta-question'
+    APP_WAIT_TIMEOUT = '600'
+  }
+  stages {
+    stage('Build') {
+        steps {
+            //slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            sh './gradlew build'
+        }
+    }
+    stage('Unit Test') {
+        steps {
+            sh './gradlew test'
+        }
+        post {
+            always {
+                junit 'build/test-results/test/binary/*.xml'
+                step([ $class: 'JacocoPublisher' ])
+            }
+        }
+    }
+    stage('Static Code Analysis') {
+        steps {
+            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                sh './mvnw sonar:sonar -s $MAVEN_SETTINGS'
+            }
+        }
 
-
-//     pipeline {
-//         agent any parameters {
-//             string(name: 'tag', defaultValue: 'latest', description: 'tag {YYYYMMDD}{HHMMSS}')
-//             string(name: 'buildtag', defaultValue: 'v1', description: 'tag {YYYYMMDD}{HHMMSS}')
-//             string(name: 'GIT_URL', defaultValue: 'http://192.168.56.101/root/springboot.git', description: 'GIT_URL')
-//             booleanParam(name: 'VERBOSE', defaultValue: false, description: '')
-//         }
-//         environment {
-//             GIT_BUSINESS_CD = 'master'
-//             GITLAB_CREDENTIAL_ID = 'superuser'
-//             IMAGE_REGISTRY = '192.168.56.100:5000'
-//             SYSTEM_CODE = 'middleware'
-//             SVC_CODE = 'wildfly/wildfly_custom_image'
-//             IMAGE_REPO = "${IMAGE_REGISTRY}/${SYSTEM_CODE}/${SVC_CODE}"
-//             DOCKER_USERNAME = 'admin'
-//             DOCKER_PASSWORD = 'admin123'
-//             VERBOSE_FLAG = '-q'
-//         }
-//         stages {
-//             stage('Preparation') {
-//                 // for display purposes
-//                 steps{
-//                     script{
-//                         env.ymd = sh (returnStdout: true, script: ''' echo `date '+%Y%m%d-%H%M%S'` ''')
-//                     }
-//                     echo("params : ${env.ymd} " + params.tag)
-//                 }
-//             }
+    }
+    stage('Package') {
+        steps {
+            sh './mvnw package -DskipTests'
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+        }
+    }
+    stage('Build Docker image') {
+        steps {
+            echo 'The build number is ${IMAGE_TAG}'
+            sh 'docker build --build-arg ENVIRONMENT=${ENVIRONMENT} -t ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .'
+        }
+    }
+    stage('Push Docker image') {
+        steps {
+            withCredentials([azureServicePrincipal('azure_service_principal')]) {
+                echo '---------az login------------'
+                sh '''
+                az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
+                az account set -s $AZURE_SUBSCRIPTION_ID
+                '''
+                sh 'az acr login --name mungtaregistry'
+                sh 'docker push ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+                sh 'az logout'
+            }
+        }
+    }
+    stage('Clean Docker image') {
+        steps {
+            echo '---------Clean image------------'
+            sh 'docker rmi ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+        }
+    }
+//     stage('Update manifest') {
+//         steps {
+//           sh """
+//             git config --global user.name "${GITHUB_NAME}"
+//             git config --global user.email "${GITHUB_EMAIL}"
+//             git config --global credential.helper cache
+//             git config --global push.default simple
+//           """
 //
-//             stage('Checkout') {
-//                 steps{
-//                     git(branch: "${env.GIT_BUSINESS_CD}", credentialsId: "${env.GITLAB_CREDENTIAL_ID}", url: params.GIT_URL, changelog: false, poll: false)
-//                 }
-//             }
-//             stage('SonarQube analysis') {
-//                 steps{
-//                     withSonarQubeEnv('SonarQube-Server'){
-//                         sh "mvn sonar:sonar -Dsonar.projectKey=demo -Dsonar.host.url=http://192.168.123.141:9000 -Dsonar.login=03a3d935387d5a8bb8894ff0a0f282055f39466a"
-//                     }
-//                 }
-//             }
+//           git url: "${HELM_CHART}", credentialsId: 'mungta_github_ssh', branch: 'main'
+//           sh """
+//             sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/g' dev/question/values.yaml
+//             git add dev/question/values.yaml
+//             git commit -m 'Update Docker image tag: ${IMAGE_TAG}'
+//           """
 //
-//             stage('SonarQube Quality Gate'){
-//                 steps{
-//                     timeout(time: 1, unit: 'MINUTES') {
-//                         script{
-//                             echo "Start~~~~"
-//                             def qg = waitForQualityGate()
-//                             echo "Status: ${qg.status}"
-//                             if(qg.status != 'OK') {
-//                                 echo "NOT OK Status: ${qg.status}"
-//                                 updateGitlabCommitStatus(name: "SonarQube Quality Gate", state: "failed")
-//                                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
-//                             } else{
-//                                 echo "OK Status: ${qg.status}"
-//                                 updateGitlabCommitStatus(name: "SonarQube Quality Gate", state: "success")
-//                             }
-//
-//                             echo "End~~~~"
-//                         }
-//                     }
-//                 }
-//             }
-//
-//             stage('Build') {
-//                 steps{
-//                     sh 'mvn clean package'
-//                 }
-//             }
-//             stage('Docker build') {
-//                 steps{
-//                     script {
-//                         env.IMAGE_TAG = "${params.tag}"
-//                         env.IMAGE_LOC = env.IMAGE_REPO + ':' + env.IMAGE_TAG
-//                     }
-//                     sh "rm -rf docker ; mkdir docker"
-//                     sh "cp target/template.war docker/springboot.war"
-//                     sh "cp wboot.sh docker/wboot.sh"
-//                     sh "cp Dockerfile docker/"
-//                     sh "chmod -R 775 docker"
-//                     dir('docker') {
-//                         sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${IMAGE_REGISTRY}"
-//                         echo "docker build to ${IMAGE_LOC}"
-//                         sh "docker build -t ${IMAGE_LOC} ${env.VERBOSE_FLAG} --rm --force-rm --pull --network host ."
-//                         echo "docker push"
-//                         sh "docker push ${IMAGE_LOC}"
-//                     }
-//                 }
-//             }
-//
-//             stage('Kubernetes deploy') {
-//                 steps {
-//                     kubernetesDeploy configs: "deployment.yaml", kubeconfigId: 'springboot'
-//                     sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/wildfly-deployment"
-//                 }
-//             }
-//
-//             stage('Clear') {
-//                 steps {
-//                     sh "docker rmi \$(docker images -f 'dangling=true' -q)"
-//                 }
-//             }
+//           sshagent (credentials: ['mungta_github_ssh']) {
+//             sh 'git push origin main'
+//           }
 //         }
 //     }
+//     stage('Argo Sync') {
+//         steps {
+//           withCredentials([usernamePassword(credentialsId: 'mungta_argocd', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_AUTH_PWD')]) {
+//             sh """
+//             argocd login --insecure "${ArgoURL}" --username ${ARGOCD_USER} --password ${ARGOCD_AUTH_PWD}
+//             argocd app sync ${ARGOCD_APP} --force
+//             argocd app wait ${ARGOCD_APP} --timeout ${APP_WAIT_TIMEOUT}
+//             argocd logout ${ArgoURL}
+//             """
+//           }
+//         }
+//     }
+  }
+//   post {
+//       success {
+//           slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+//       }
+//       failure {
+//           slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+//       }
+//   }
+}
+
