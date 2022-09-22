@@ -63,14 +63,14 @@ jacocoTestCoverageVerification {
             includes = [
                     '**/domain/**'
             ]
-//            excludes = [
-//                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
-//                    "com/mungta/questionsservice/common/**",
-//                    "com/mungta/questionsservice/config/**",
-//                    "com/mungta/questionsservice/domain/BaseEntity.class",
-//                    "com/mungta/questionsservice/domain/question/dto/**",
-//                    "com/mungta/questionsservice/domain/response/dto/**"
-//            ]
+            excludes = [
+                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
+                    "com/mungta/questionsservice/common/**",
+                    "com/mungta/questionsservice/config/**",
+                    "com/mungta/questionsservice/domain/BaseEntity.class",
+                    "com/mungta/questionsservice/domain/question/dto/**",
+                    "com/mungta/questionsservice/domain/response/dto/**"
+            ]
         }
     }
 }
