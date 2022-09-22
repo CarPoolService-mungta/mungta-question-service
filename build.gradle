@@ -14,19 +14,23 @@ sourceCompatibility = '11'
 jacoco {
 
     toolVersion = '0.8.5'
+    reportsDir = file("$buildDir/jacoco")
 }
 jacocoTestReport {
-    dependsOn test
+//    dependsOn test
     reports {
         html.enabled true
         xml.enabled true
         csv.enabled true
 
-        html.destination file("src/jacoco/jacoco.html")
-        xml.destination file("src/jacoco/jacoco.xml")
+        html.destination file("$buildDir/jacoco/jacoco.html")
+        xml.destination file("$buildDir/jacoco/jacoco.xml")
+//        csv.destination file("$buildDir/jacoco/jacoco.csv")
     }
     finalizedBy 'jacocoTestCoverageVerification'
 }
+test.finalizedBy 'jacocoTestReport'
+
 jacocoTestCoverageVerification {
     violationRules {
         rule {
@@ -36,18 +40,18 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.80
+                minimum = 0.60
             }
 
             limit {
                 counter = 'METHOD'
                 value = 'COVEREDRATIO'
-                minimum = 0.80
+                minimum = 0.60
             }
             excludes=[
                     '*Application.class',
-                    '**.common.**',
-                    '**.config.**'
+                    '**/common/**',
+                    '**/config/**'
             ]
         }
     }
@@ -88,13 +92,23 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 }
 
-//tasks.named('test') {
-//    useJUnitPlatform()
-//}
-
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
+task testCoverage(type: Test) {
+    group 'verification'
+    description 'Runs the unit tests with coverage'
+
+    dependsOn(':test',
+            ':jacocoTestReport',
+            ':jacocoTestCoverageVerification')
+
+    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+    tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+}
+//test {
+//    useJUnitPlatform()
+//}
 
 task localRun {
     doFirst {
