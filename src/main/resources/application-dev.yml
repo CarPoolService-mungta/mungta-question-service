@@ -43,3 +43,13 @@ logging:
           descriptor:
             sql: TRACE
 
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
