@@ -57,27 +57,25 @@ pipeline {
         steps {
             sh './gradlew test'
         }
-        post {
-            always {
-                junit 'build/test-results/test/binary/*.xml'
-                step([ $class: 'JacocoPublisher' ])
-            }
-        }
+//        post {
+//            always {
+//                junit 'build/test-results/test/binary/*.xml'
+//                step([ $class: 'JacocoPublisher' ])
+//            }
+//        }
     }
     stage('Static Code Analysis') {
         steps {
-            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-                sh './mvnw sonar:sonar -s $MAVEN_SETTINGS'
-            }
+            sh './gradlew sonarqube
         }
 
     }
-    stage('Package') {
-        steps {
-            sh './mvnw package -DskipTests'
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-        }
-    }
+//    stage('Package') {
+//        steps {
+//            sh './mvnw package -DskipTests'
+//            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+//        }
+//    }
     stage('Build Docker image') {
         steps {
             echo 'The build number is ${IMAGE_TAG}'

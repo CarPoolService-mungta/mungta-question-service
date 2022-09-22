@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id "org.flywaydb.flyway" version "8.5.13"
     id 'jacoco'
+    id "org.sonarqube" version "3.0"
 }
 
 group = 'com.mungta'
@@ -26,7 +27,6 @@ jacocoTestReport {
     }
     finalizedBy 'jacocoTestCoverageVerification'
 }
-
 jacocoTestCoverageVerification {
     violationRules {
         rule {
@@ -50,6 +50,15 @@ jacocoTestCoverageVerification {
                     '**.config.**'
             ]
         }
+    }
+}
+sonarqube {
+    properties {
+        property "sonar.projectName", "questions-service"
+        property "sonar.projectKey", "questions-service"
+        property "sonar.host.url", "http://20.232.233.156:9000"
+        property "sonar.login", "2d6ff96d704a385abd8b3559d85e2b66cf7f39e0"
+        property "sonar.sourceEncoding", "UTF-8"
     }
 }
 configurations {
