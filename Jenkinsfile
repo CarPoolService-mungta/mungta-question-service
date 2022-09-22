@@ -40,32 +40,32 @@ pipeline {
 //            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
 //        }
 //    }
-    stage('Build Docker image') {
-        steps {
-            echo 'The build number is ${IMAGE_TAG}'
-            sh 'docker build --build-arg ENVIRONMENT=${ENVIRONMENT} -t ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .'
-        }
-    }
-    stage('Push Docker image') {
-        steps {
-            withCredentials([azureServicePrincipal('azure_service_principal')]) {
-                echo '---------az login------------'
-                sh '''
-                az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
-                az account set -s $AZURE_SUBSCRIPTION_ID
-                '''
-                sh 'az acr login --name mungtaregistry'
-                sh 'docker push ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
-                sh 'az logout'
-            }
-        }
-    }
-    stage('Clean Docker image') {
-        steps {
-            echo '---------Clean image------------'
-            sh 'docker rmi ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
-        }
-    }
+//    stage('Build Docker image') {
+//        steps {
+//            echo 'The build number is ${IMAGE_TAG}'
+//            sh 'docker build --build-arg ENVIRONMENT=${ENVIRONMENT} -t ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .'
+//        }
+//    }
+//    stage('Push Docker image') {
+//        steps {
+//            withCredentials([azureServicePrincipal('azure_service_principal')]) {
+//                echo '---------az login------------'
+//                sh '''
+//                az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
+//                az account set -s $AZURE_SUBSCRIPTION_ID
+//                '''
+//                sh 'az acr login --name mungtaregistry'
+//                sh 'docker push ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+//                sh 'az logout'
+//            }
+//        }
+//    }
+//    stage('Clean Docker image') {
+//        steps {
+//            echo '---------Clean image------------'
+//            sh 'docker rmi ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+//        }
+//    }
 //     stage('Update manifest') {
 //         steps {
 //           sh """
