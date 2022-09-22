@@ -17,7 +17,7 @@ jacoco {
     reportsDir = file("$buildDir/jacoco")
 }
 jacocoTestReport {
-//    dependsOn test
+    dependsOn test
     reports {
         html.enabled true
         xml.enabled true
@@ -27,6 +27,19 @@ jacocoTestReport {
         xml.destination file("$buildDir/jacoco/jacoco.xml")
 //        csv.destination file("$buildDir/jacoco/jacoco.csv")
     }
+//    afterEvaluate {
+//        classDirectories.setFrom(files(classDirectories.files.collect {
+//            fileTree(dir: it,
+//                    exclude: [
+//                            "com/mungta/questionsservice/QuestionsServiceApplication.class",
+//                            "com/mungta/questionsservice/common/**",
+//                            "com/mungta/questionsservice/config/**",
+//                            "com/mungta/questionsservice/domain/BaseEntity.class",
+//                            "com/mungta/questionsservice/domain/question/dto/**",
+//                            "com/mungta/questionsservice/domain/response/dto/**"
+//                    ])
+//        }))
+//    }
     finalizedBy 'jacocoTestCoverageVerification'
 }
 test.finalizedBy 'jacocoTestReport'
@@ -48,14 +61,32 @@ jacocoTestCoverageVerification {
                 value = 'COVEREDRATIO'
                 minimum = 0.60
             }
-            excludes=[
-                    '*Application.class',
-                    '**/common/**',
-                    '**/config/**'
-            ]
+//            excludes=[
+//                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
+//                    "com/mungta/questionsservice/common/**",
+//                    "com/mungta/questionsservice/config/**",
+//                    "com/mungta/questionsservice/domain/BaseEntity.class",
+//                    "com/mungta/questionsservice/domain/question/dto/**",
+//                    "com/mungta/questionsservice/domain/response/dto/**"
+//            ]
         }
     }
 }
+
+test {
+    useJUnitPlatform()
+    jacoco {
+        excludes += [
+                "com/mungta/questionsservice/QuestionsServiceApplication.class",
+                "com/mungta/questionsservice/common/**",
+                "com/mungta/questionsservice/config/**",
+                "com/mungta/questionsservice/domain/BaseEntity.class",
+                "com/mungta/questionsservice/domain/question/dto/**",
+                "com/mungta/questionsservice/domain/response/dto/**"
+        ]
+    }
+}
+
 sonarqube {
     properties {
         property "sonar.projectName", "questions-service"
@@ -92,22 +123,19 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-task testCoverage(type: Test) {
-    group 'verification'
-    description 'Runs the unit tests with coverage'
-
-    dependsOn(':test',
-            ':jacocoTestReport',
-            ':jacocoTestCoverageVerification')
-
-    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
-    tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
-}
-//test {
+//tasks.named('test') {
 //    useJUnitPlatform()
+//}
+//task testCoverage(type: Test) {
+//    group 'verification'
+//    description 'Runs the unit tests with coverage'
+//
+//    dependsOn(':test',
+//            ':jacocoTestReport',
+//            ':jacocoTestCoverageVerification')
+//
+//    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+//    tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
 //}
 
 task localRun {
