@@ -30,7 +30,7 @@ pipeline {
     }
     stage('Static Code Analysis') {
         steps {
-            sh './gradlew sonarqube
+            sh './gradlew sonarqube'
         }
 
     }
