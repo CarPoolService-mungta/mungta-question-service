@@ -3,6 +3,7 @@ package com.mungta.questionsservice.domain.question.service;
 import com.mungta.questionsservice.common.ApiException;
 import com.mungta.questionsservice.common.ApiStatus;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
+import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
@@ -109,6 +110,22 @@ public class QuestionServiceTest {
         assertThatThrownBy(()->questionService.findShowQuestionById(2L))
                 .isInstanceOf(ApiException.class)
                 .hasMessage("문의사항이 존재하지 않습니다.");
+    }
+
+    @DisplayName("question response로 convert")
+    @Test
+    void findShowQuestionResponse() {
+        given(questionRepository.findByIdAndDisplayStatus(QUESTION_ID, DisplayStatus.SHOW))
+                .willReturn(Optional.ofNullable(question));
+
+        QuestionResponse questionResponse = questionService.findShowQuestionResponse(QUESTION_ID);
+
+        assertAll(
+                ()->assertThat(questionResponse.getQuestion().getTitle()).isEqualTo(QUESTION_TITLE),
+                ()->assertThat(questionResponse.getQuestion().getBody()).isEqualTo(QUESTION_BODY),
+                ()->assertThat(questionResponse.getResponse().getTitle()).isEqualTo(RESPONSE_TITLE),
+                ()->assertThat(questionResponse.getResponse().getBody()).isEqualTo(RESPONSE_BODY)
+                );
     }
 
     @DisplayName("유저 문의 조회")

@@ -100,20 +100,23 @@ public class QuestionControllerTest {
     @DisplayName("[회원] 특정 문의사항 조회 API")
     @Test
     void findShowQuestionById() throws Exception {
+//        doReturn(
+//                QuestionResponse.builder()
+//                        .question(
+//                                QuestionContents.builder()
+//                                        .title(QUESTION_TITLE)
+//                                        .body(QUESTION_BODY)
+//                                        .build()
+//                        )
+//                        .response(
+//                                ResponseContents.builder()
+//                                        .title(RESPONSE_TITLE)
+//                                        .body(RESPONSE_BODY)
+//                                        .build()
+//                        ).build()
+//        ).when(questionService).findShowQuestionResponse(QUESTION_ID);
         doReturn(
-                QuestionResponse.builder()
-                        .question(
-                                QuestionContents.builder()
-                                        .title(QUESTION_TITLE)
-                                        .body(QUESTION_BODY)
-                                        .build()
-                        )
-                        .response(
-                                ResponseContents.builder()
-                                        .title(RESPONSE_TITLE)
-                                        .body(RESPONSE_BODY)
-                                        .build()
-                        ).build()
+                question.convertQuestionResponse()
         ).when(questionService).findShowQuestionResponse(QUESTION_ID);
 
 
