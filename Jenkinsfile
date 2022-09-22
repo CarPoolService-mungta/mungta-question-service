@@ -40,12 +40,12 @@ pipeline {
 //            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
 //        }
 //    }
-//    stage('Build Docker image') {
-//        steps {
-//            echo 'The build number is ${IMAGE_TAG}'
-//            sh 'docker build --build-arg ENVIRONMENT=${ENVIRONMENT} -t ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .'
-//        }
-//    }
+    stage('Build Docker image') {
+        steps {
+            echo 'The build number is ${IMAGE_TAG}'
+            sh 'docker build --build-arg ENVIRONMENT=${ENVIRONMENT} -t ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .'
+        }
+    }
 //    stage('Push Docker image') {
 //        steps {
 //            withCredentials([azureServicePrincipal('azure_service_principal')]) {
