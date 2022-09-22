@@ -17,7 +17,6 @@ jacoco {
     reportsDir = file("$buildDir/jacoco")
 }
 jacocoTestReport {
-    dependsOn test
     reports {
         html.enabled true
         xml.enabled true
@@ -27,19 +26,19 @@ jacocoTestReport {
         xml.destination file("$buildDir/jacoco/jacoco.xml")
 //        csv.destination file("$buildDir/jacoco/jacoco.csv")
     }
-//    afterEvaluate {
-//        classDirectories.setFrom(files(classDirectories.files.collect {
-//            fileTree(dir: it,
-//                    exclude: [
-//                            "com/mungta/questionsservice/QuestionsServiceApplication.class",
-//                            "com/mungta/questionsservice/common/**",
-//                            "com/mungta/questionsservice/config/**",
-//                            "com/mungta/questionsservice/domain/BaseEntity.class",
-//                            "com/mungta/questionsservice/domain/question/dto/**",
-//                            "com/mungta/questionsservice/domain/response/dto/**"
-//                    ])
-//        }))
-//    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: [
+                            "com/mungta/questionsservice/QuestionsServiceApplication.class",
+                            "com/mungta/questionsservice/common/**",
+                            "com/mungta/questionsservice/config/**",
+                            "com/mungta/questionsservice/domain/BaseEntity.class",
+                            "com/mungta/questionsservice/domain/question/dto/**",
+                            "com/mungta/questionsservice/domain/response/dto/**"
+                    ])
+        }))
+    }
     finalizedBy 'jacocoTestCoverageVerification'
 }
 test.finalizedBy 'jacocoTestReport'
@@ -61,7 +60,10 @@ jacocoTestCoverageVerification {
                 value = 'COVEREDRATIO'
                 minimum = 0.60
             }
-//            excludes=[
+            includes = [
+                    '**/domain/**'
+            ]
+//            excludes = [
 //                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
 //                    "com/mungta/questionsservice/common/**",
 //                    "com/mungta/questionsservice/config/**",
