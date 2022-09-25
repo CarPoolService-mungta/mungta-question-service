@@ -36,7 +36,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(value = MockitoExtension.class)
-public class QuestionServiceTest {
+class QuestionServiceTest {
 
     @InjectMocks
     @Spy

@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(value = MockitoExtension.class)
-public class ResponseServiceTest {
+class ResponseServiceTest {
     @InjectMocks
     @Spy
     private ResponseService responseService;
