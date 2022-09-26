@@ -1,8 +1,8 @@
 package com.mungta.questionsservice.domain.question.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
+import com.mungta.questionsservice.controller.QuestionController;
+import com.mungta.questionsservice.dto.response.QuestionListResponse;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.question.service.QuestionService;
@@ -31,7 +31,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @MockBean(JpaMetamodelMappingContext.class)

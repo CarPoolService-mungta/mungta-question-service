@@ -1,12 +1,9 @@
 package com.mungta.questionsservice.domain.response.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mungta.questionsservice.domain.question.controller.QuestionController;
-import com.mungta.questionsservice.domain.question.model.Question;
-import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
+import com.mungta.questionsservice.controller.ResponseController;
 import com.mungta.questionsservice.domain.question.service.QuestionService;
-import com.mungta.questionsservice.domain.response.dto.ResponseRegisterRequest;
-import com.mungta.questionsservice.domain.response.model.Response;
+import com.mungta.questionsservice.dto.request.ResponseRegisterRequest;
 import com.mungta.questionsservice.domain.response.model.vo.ResponseContents;
 import com.mungta.questionsservice.domain.response.service.ResponseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
@@ -31,7 +27,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @MockBean(JpaMetamodelMappingContext.class)

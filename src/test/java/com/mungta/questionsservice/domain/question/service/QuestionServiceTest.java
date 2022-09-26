@@ -2,8 +2,8 @@ package com.mungta.questionsservice.domain.question.service;
 
 import com.mungta.questionsservice.common.ApiException;
 import com.mungta.questionsservice.common.ApiStatus;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
+import com.mungta.questionsservice.dto.response.QuestionListResponse;
+import com.mungta.questionsservice.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
@@ -18,8 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.time.LocalDateTime;
 import java.util.List;

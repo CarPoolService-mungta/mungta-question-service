@@ -1,6 +1,6 @@
 package com.mungta.questionsservice.domain.question.sample;
 
-import com.mungta.questionsservice.domain.question.dto.request.QuestionRegisterRequest;
+import com.mungta.questionsservice.dto.request.QuestionRegisterRequest;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.response.model.Response;

@@ -1,4 +1,4 @@
-package com.mungta.questionsservice.domain.response.dto;
+package com.mungta.questionsservice.dto.request;
 
 import com.mungta.questionsservice.domain.response.model.vo.ResponseContents;
 import io.swagger.annotations.ApiModel;

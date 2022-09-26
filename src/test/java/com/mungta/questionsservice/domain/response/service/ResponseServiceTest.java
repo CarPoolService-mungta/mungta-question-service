@@ -3,8 +3,7 @@ package com.mungta.questionsservice.domain.response.service;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.question.repository.QuestionRepository;
-import com.mungta.questionsservice.domain.question.service.QuestionService;
-import com.mungta.questionsservice.domain.response.dto.ResponseRegisterRequest;
+import com.mungta.questionsservice.dto.request.ResponseRegisterRequest;
 import com.mungta.questionsservice.domain.response.model.Response;
 import com.mungta.questionsservice.domain.response.model.vo.ResponseContents;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(value = MockitoExtension.class)
