@@ -1,8 +1,8 @@
 package com.mungta.questionsservice.domain.question.model;
 
 import com.mungta.questionsservice.domain.BaseEntity;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
+import com.mungta.questionsservice.dto.response.QuestionListResponse;
+import com.mungta.questionsservice.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.response.model.Response;

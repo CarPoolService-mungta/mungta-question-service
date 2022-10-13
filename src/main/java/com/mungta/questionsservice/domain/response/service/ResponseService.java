@@ -4,7 +4,7 @@ import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.repository.QuestionRepository;
 import com.mungta.questionsservice.domain.response.model.Response;
 import com.mungta.questionsservice.domain.response.repository.ResponseRepository;
-import com.mungta.questionsservice.domain.response.dto.ResponseRegisterRequest;
+import com.mungta.questionsservice.dto.request.ResponseRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,9 @@
-package com.mungta.questionsservice.domain.response.controller;
+package com.mungta.questionsservice.controller;
 
 
-import com.mungta.questionsservice.common.MessageEntity;
 import com.mungta.questionsservice.domain.question.service.QuestionService;
 import com.mungta.questionsservice.domain.response.service.ResponseService;
-import com.mungta.questionsservice.domain.response.dto.ResponseRegisterRequest;
+import com.mungta.questionsservice.dto.request.ResponseRegisterRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

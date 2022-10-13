@@ -1,5 +1,9 @@
 package com.mungta.questionsservice.domain.question.service;
 
+import com.mungta.questionsservice.common.ApiException;
+import com.mungta.questionsservice.common.ApiStatus;
+import com.mungta.questionsservice.dto.response.QuestionListResponse;
+import com.mungta.questionsservice.dto.response.QuestionResponse;
 import com.mungta.questionsservice.common.CustomException;
 import com.mungta.questionsservice.common.ApiMessage;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
@@ -7,7 +11,7 @@ import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.repository.QuestionRepository;
-import com.mungta.questionsservice.domain.question.dto.request.QuestionRegisterRequest;
+import com.mungta.questionsservice.dto.request.QuestionRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

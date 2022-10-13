@@ -1,4 +1,4 @@
-package com.mungta.questionsservice.domain.question.dto.response;
+package com.mungta.questionsservice.dto.response;
 
 import lombok.*;
 

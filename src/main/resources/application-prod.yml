@@ -48,6 +48,12 @@ management:
     health:
       probes:
         enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  prometheus:
+    enabled: true
   health:
     livenessState:
       enabled: true

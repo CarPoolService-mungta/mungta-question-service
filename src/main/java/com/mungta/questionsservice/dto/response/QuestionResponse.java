@@ -1,4 +1,4 @@
-package com.mungta.questionsservice.domain.question.dto.response;
+package com.mungta.questionsservice.dto.response;
 
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.response.model.vo.ResponseContents;

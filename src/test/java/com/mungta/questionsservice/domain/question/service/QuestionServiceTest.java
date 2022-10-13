@@ -33,8 +33,8 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(value = MockitoExtension.class) // 1
-public class QuestionServiceTest {
+@ExtendWith(value = MockitoExtension.class)
+class QuestionServiceTest {
 
     @InjectMocks
     @Spy
