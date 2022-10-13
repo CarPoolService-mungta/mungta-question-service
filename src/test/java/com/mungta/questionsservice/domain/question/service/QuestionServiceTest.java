@@ -2,14 +2,14 @@ package com.mungta.questionsservice.domain.question.service;
 
 import com.mungta.questionsservice.common.CustomException;
 import com.mungta.questionsservice.common.ApiMessage;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
-import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.Question;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
 import com.mungta.questionsservice.domain.question.model.vo.QuestionContents;
 import com.mungta.questionsservice.domain.question.repository.QuestionRepository;
 import com.mungta.questionsservice.domain.response.model.Response;
 import com.mungta.questionsservice.domain.response.model.vo.ResponseContents;
+import com.mungta.questionsservice.dto.response.QuestionListResponse;
+import com.mungta.questionsservice.dto.response.QuestionResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
