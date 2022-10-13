@@ -7,12 +7,12 @@ public class MessageEntity<T> {
     private Integer status;
     private String message;
 
-    private MessageEntity(ApiStatus apiStatus) {
-        this.status = apiStatus.getCode();
-        this.message = apiStatus.getMessage();
+    private MessageEntity(ApiMessage apiMessage) {
+        this.status = apiMessage.getCode();
+        this.message = apiMessage.getMessage();
     }
 
-    public static MessageEntity of(ApiStatus apiStatus){
-        return new MessageEntity(apiStatus);
+    public static MessageEntity of(ApiMessage apiMessage){
+        return new MessageEntity(apiMessage);
     }
 }

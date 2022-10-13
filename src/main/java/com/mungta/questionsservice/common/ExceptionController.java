@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ExceptionController {
 
-    @ExceptionHandler({ApiException.class})
-    public ResponseEntity<MessageEntity> handleApiException(ApiException e) {
+    @ExceptionHandler({CustomException.class})
+    public ResponseEntity<MessageEntity> handleApiException(CustomException e) {
 
-        ApiStatus apiStatus = e.getApiStatus();
-        return new ResponseEntity<>(MessageEntity.of(apiStatus),apiStatus.getHttpStatus());
+        ApiMessage apiMessage = e.getApiMessage();
+        return new ResponseEntity<>(MessageEntity.of(apiMessage), apiMessage.getHttpStatus());
     }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<MessageEntity> handleException(Exception e) {
 
-        ApiStatus apiStatus = ApiStatus.UNEXPECTED_ERROR;
-        return new ResponseEntity<>(MessageEntity.of(apiStatus),apiStatus.getHttpStatus());
+        ApiMessage apiMessage = ApiMessage.UNEXPECTED_ERROR;
+        return new ResponseEntity<>(MessageEntity.of(apiMessage), apiMessage.getHttpStatus());
     }
 }

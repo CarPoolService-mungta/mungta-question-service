@@ -1,7 +1,7 @@
 package com.mungta.questionsservice.domain.question.service;
 
-import com.mungta.questionsservice.common.ApiException;
-import com.mungta.questionsservice.common.ApiStatus;
+import com.mungta.questionsservice.common.CustomException;
+import com.mungta.questionsservice.common.ApiMessage;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionListResponse;
 import com.mungta.questionsservice.domain.question.dto.response.QuestionResponse;
 import com.mungta.questionsservice.domain.question.model.enums.DisplayStatus;
@@ -29,7 +29,7 @@ public class QuestionService {
     public Question findShowQuestionById(Long id){
 
         return questionRepository.findByIdAndDisplayStatus(id, DisplayStatus.SHOW)
-                .orElseThrow(()-> new ApiException(ApiStatus.NOT_EXIST_QUESTION));
+                .orElseThrow(()-> new CustomException(ApiMessage.NOT_EXIST_QUESTION));
     }
 
     public QuestionResponse findShowQuestionResponse(Long id){

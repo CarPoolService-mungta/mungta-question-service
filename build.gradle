@@ -24,7 +24,6 @@ jacocoTestReport {
 
         html.destination file("$buildDir/jacoco/jacoco.html")
         xml.destination file("$buildDir/jacoco/jacoco.xml")
-//        csv.destination file("$buildDir/jacoco/jacoco.csv")
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
@@ -63,30 +62,30 @@ jacocoTestCoverageVerification {
             includes = [
                     '**/domain/**'
             ]
-            excludes = [
-                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
-                    "com/mungta/questionsservice/common/**",
-                    "com/mungta/questionsservice/config/**",
-                    "com/mungta/questionsservice/domain/BaseEntity.class",
-                    "com/mungta/questionsservice/domain/question/dto/**",
-                    "com/mungta/questionsservice/domain/response/dto/**"
-            ]
+//            excludes = [
+//                    "com/mungta/questionsservice/QuestionsServiceApplication.class",
+//                    "com/mungta/questionsservice/common/**",
+//                    "com/mungta/questionsservice/config/**",
+//                    "com/mungta/questionsservice/domain/BaseEntity.class",
+//                    "com/mungta/questionsservice/domain/question/dto/**",
+//                    "com/mungta/questionsservice/domain/response/dto/**"
+//            ]
         }
     }
 }
 
 test {
     useJUnitPlatform()
-    jacoco {
-        excludes += [
-                "com/mungta/questionsservice/QuestionsServiceApplication.class",
-                "com/mungta/questionsservice/common/**",
-                "com/mungta/questionsservice/config/**",
-                "com/mungta/questionsservice/domain/BaseEntity.class",
-                "com/mungta/questionsservice/domain/question/dto/**",
-                "com/mungta/questionsservice/domain/response/dto/**"
-        ]
-    }
+//    jacoco {
+//        excludes += [
+//                "com/mungta/questionsservice/QuestionsServiceApplication.class",
+//                "com/mungta/questionsservice/common/**",
+//                "com/mungta/questionsservice/config/**",
+//                "com/mungta/questionsservice/domain/BaseEntity.class",
+//                "com/mungta/questionsservice/domain/question/dto/**",
+//                "com/mungta/questionsservice/domain/response/dto/**"
+//        ]
+//    }
 }
 
 sonarqube {
